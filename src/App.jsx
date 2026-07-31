@@ -1,56 +1,57 @@
 import React, { useState, useEffect } from 'react';
 
-// Import semua komponen yang udah kita bikin
+// Import semua komponen
 import LoadingScreen from './component/LoadingScreen.jsx';
 import NavbarPUPR from './component/navbar.jsx';
 import HeroSection from './component/hero.jsx';
 import SambutanSection from './component/sambutan.jsx';
 import ServicesSection from './component/services.jsx';
 import SistemInformasiSection from './component/sistem-informasi.jsx';
+import BeritaSection from './component/berita.jsx';
 
 function App() {
-  // State buat ngontrol layar loading
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  
+  // Deteksi URL yang lagi dibuka sekarang
+  const currentPath = window.location.pathname;
 
   useEffect(() => {
-    // Durasi loading layarnya (2 detik)
     const timer = setTimeout(() => {
-      // 1. Mulai efek menghilang perlahan (fade out)
       setIsFadingOut(true); 
-      
-      // 2. Tunggu efek fade out selesai (0.7 detik), baru hapus komponennya
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 700);
-      
+      setTimeout(() => setIsLoading(false), 700);
     }, 2000);
-
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      {/* Loading Screen nutupin full layar di awal */}
       {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
 
-      {/* Konten Utama Website */}
       <div className="min-h-screen bg-gray-50 font-sans scroll-smooth">
         
-        {/* 1. Navbar Sticky */}
+        {/* Navbar selalu muncul di semua halaman */}
         <NavbarPUPR />
         
-        {/* 2. Hero Video Parallax */}
-        <HeroSection />
-        
-        {/* 3. Sambutan Kepala Dinas */}
-        <SambutanSection />
-        
-        {/* 4. Layanan Kami (3 Kartu) */}
-        <ServicesSection />
+        {/* LOGIKA PEMISAH HALAMAN */}
+        {currentPath.includes('/berita') ? (
+          
+          /* JIKA URL ADALAH /berita, TAMPILKAN INI SAJA */
+          <div className="pt-8">
+            <BeritaSection />
+          </div>
 
-        {/* 5. Sistem Informasi Infrastruktur (9 Kartu) */}
-        <SistemInformasiSection />
+        ) : (
+
+          /* JIKA BERADA DI BERANDA (/), TAMPILKAN SEMUA INI */
+          <>
+            <HeroSection />
+            <SambutanSection />
+            <ServicesSection />
+            <SistemInformasiSection />
+          </>
+
+        )}
 
       </div>
     </>
