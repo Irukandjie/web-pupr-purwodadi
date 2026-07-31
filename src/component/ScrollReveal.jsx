@@ -2,43 +2,47 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const ScrollReveal = ({ 
   children, 
-  direction = 'up',  // Pilihan arah: 'up', 'down', 'left', 'right', 'none'
-  delay = 'delay-0', // Pilihan delay: 'delay-100', 'delay-300', 'delay-500', dst
-  duration = 'duration-1000', 
-  className = ''     // Kalau lu mau nambahin class Tailwind tambahan
+  direction = 'up', // Pilihan: 'up', 'down', 'left', 'right', 'none'
+  delay = 'delay-0', // Pilihan: 'delay-75', 'delay-100', 'delay-300', 'delay-500', dll
+  duration = 'duration-1000', // Kecepatan animasi
+  className = '', 
+  threshold = 0.15 // Seberapa banyak elemen harus masuk layar sebelum animasi jalan (0.15 = 15%)
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target); // Biar animasinya jalan sekali aja
-          }
-        });
+      ([entry]) => {
+        // Kalau elemen masuk layar, set jadi true
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          // Unobserve biar animasinya cuma jalan sekali pas pertama kali di-scroll
+          observer.unobserve(entry.target);
+        }
       },
-      { threshold: 0.15 } // Trigger animasi pas 15% elemen udah kelihatan di layar
+      {
+        threshold: threshold, // Trigger animasi pas elemen kelihatan 15%
+      }
     );
 
-    if (ref.current) observer.observe(ref.current);
-    
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
     return () => {
       if (ref.current) observer.unobserve(ref.current);
     };
-  }, []);
+  }, [threshold]);
 
-  // Menentukan posisi awal elemen sebelum dia muncul ke layar
-  const getInitialTransform = () => {
+  // Nentuin dari mana elemennya bakal muncul
+  const getDirectionClass = () => {
     switch (direction) {
-      case 'up': return 'translate-y-24';
-      case 'down': return '-translate-y-24';
-      case 'left': return '-translate-x-24';
-      case 'right': return 'translate-x-24';
-      case 'none': return '';
-      default: return 'translate-y-24';
+      case 'up': return 'translate-y-20'; // Meluncur dari bawah ke atas
+      case 'down': return '-translate-y-20'; // Meluncur dari atas ke bawah
+      case 'left': return '-translate-x-20'; // Meluncur dari kiri ke kanan
+      case 'right': return 'translate-x-20'; // Meluncur dari kanan ke kiri
+      default: return 'translate-y-0 translate-x-0'; // Cuma fade in (nggak gerak)
     }
   };
 
@@ -47,8 +51,8 @@ const ScrollReveal = ({
       ref={ref}
       className={`transform transition-all ease-out ${duration} ${delay} ${className} ${
         isVisible 
-          ? 'opacity-100 translate-y-0 translate-x-0' 
-          : `opacity-0 ${getInitialTransform()}`
+          ? 'opacity-100 translate-y-0 translate-x-0' // Posisi akhir (normal)
+          : `opacity-0 ${getDirectionClass()}` // Posisi awal (ngumpet)
       }`}
     >
       {children}
