@@ -7,21 +7,22 @@ export default function LandingPage({ onNavigate }) {
   // State buat ganti-ganti tab di Portal Informasi
   const [activeTab, setActiveTab] = useState('Berita Terbaru');
 
+  // --- BERITA DI-UPDATE MENGGUNAKAN GAMBAR BARU ---
   const beritaBeranda = [
     {
       kategori: "Kegiatan", date: "01 Desember 2020",
       title: "Penandatanganan Kontrak Kegiatan Pembangunan Jalan...",
-      img: "https://placehold.co/400x250/1e293b/ffffff?text=Kontrak"
+      img: "https://i.ibb.co.com/r2sfXYzX/Kontrak.jpg" // Gambar Kontrak
     },
     {
       kategori: "Infrastruktur", date: "30 November 2020",
       title: "Peningkatan Jalan Monggot-Bangsri Kecamatan Geyer...",
-      img: "https://placehold.co/400x250/475569/ffffff?text=Jalan"
+      img: "https://i.ibb.co.com/F400nVPm/Jalan.jpg" // Gambar Jalan
     },
     {
       kategori: "Kunjungan", date: "29 November 2020",
       title: "Kunjungan Lapangan Tim BPK Perwakilan Provinsi...",
-      img: "https://placehold.co/400x250/334155/ffffff?text=Kunjungan"
+      img: "https://i.ibb.co.com/KjSHrSp5/Kunjungan.jpg" // Gambar Kunjungan
     }
   ];
 
@@ -93,7 +94,7 @@ export default function LandingPage({ onNavigate }) {
                     <ScrollReveal key={idx} direction="up" delay={`delay-${(idx+1)*100}`} className="flex">
                       <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:border-red-200 cursor-pointer group transition-all duration-300 flex flex-col w-full">
                         <div className="h-36 bg-gray-200 relative overflow-hidden">
-                          <img src={item.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Thumbnail" />
+                          <img src={item.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={item.title} />
                           <span className="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">{item.kategori}</span>
                         </div>
                         <div className="p-5 flex flex-col flex-grow">
