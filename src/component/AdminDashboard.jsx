@@ -88,6 +88,7 @@ const AdminDashboard = ({ onNavigate }) => {
         </nav>
 
         <div className="p-4 border-t border-slate-800">
+          {/* INI TOMBOL LOGOUT-NYA YANG MENGARAHKAN KEMBALI KE BERANDA USER */}
           <button 
             onClick={() => onNavigate && onNavigate('landing')}
             className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 text-red-400 hover:bg-red-600 hover:text-white rounded-lg transition-colors text-sm font-bold"
