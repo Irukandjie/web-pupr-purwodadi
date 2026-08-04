@@ -8,6 +8,10 @@ import BeritaSection from './component/berita';
 import LoadingScreen from './component/LoadingScreen';
 import SambutanSection from './component/sambutan';
 
+// --- UPDATE: IMPORT KOMPONEN PROSEDUR ---
+// (Pastikan path dan nama file import-nya sesuai dengan yang kamu simpan, misalnya './component/Prosedur')
+import ProsedurPage from './component/Prosedur'; 
+
 // IMPORT KOMPONEN ADMIN YANG BARU
 import LoginAdmin from './component/LoginAdmin';
 import AdminDashboard from './component/AdminDashboard';
@@ -47,8 +51,12 @@ function App() {
 
         {currentPage === 'geografis' && <InformasiGeografis />}
         {currentPage === 'berita' && <BeritaSection />}
+        
+        {/* --- UPDATE: RENDER HALAMAN PROSEDUR --- */}
+        {currentPage === 'prosedur' && <ProsedurPage />}
 
-        {['katalog', 'sekilas-info'].includes(currentPage) && (
+        {/* --- UPDATE: Hapus 'katalog' dari array sini karena udah diganti jadi 'prosedur' --- */}
+        {['sekilas-info'].includes(currentPage) && (
           <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-slate-50">
             <span className="px-5 py-2 rounded-full bg-red-100 text-red-600 font-bold text-sm mb-6 shadow-sm border border-red-200">
               Dalam Pengembangan
@@ -89,4 +97,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;   
