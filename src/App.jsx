@@ -7,12 +7,9 @@ import InformasiGeografis from './component/InformasiGeografis';
 import BeritaSection from './component/berita';
 import LoadingScreen from './component/LoadingScreen';
 import SambutanSection from './component/sambutan';
-
-// --- UPDATE: IMPORT KOMPONEN PROSEDUR ---
-// (Pastikan path dan nama file import-nya sesuai dengan yang kamu simpan, misalnya './component/Prosedur')
 import ProsedurPage from './component/Prosedur'; 
 
-// IMPORT KOMPONEN ADMIN YANG BARU
+// IMPORT KOMPONEN ADMIN
 import LoginAdmin from './component/LoginAdmin';
 import AdminDashboard from './component/AdminDashboard';
 
@@ -21,15 +18,33 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
+  // Initial load saat pertama kali website dibuka
   useEffect(() => {
     const timer1 = setTimeout(() => setIsFadingOut(true), 2000); 
-    const timer2 = setTimeout(() => setIsLoading(false), 2700); 
+    const timer2 = setTimeout(() => setIsLoading(false), 2300); 
     return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
+  // Fungsi navigasi dengan efek loading cepat (ngebut biar keren) saat pindah halaman/tab
   const handleNavigation = (pageId) => {
-    setCurrentPage(pageId);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    // Jangan trigger loading kalau klik halaman yang sama
+    if (currentPage === pageId) return;
+
+    setIsLoading(true);
+    setIsFadingOut(false);
+
+    // Simulasi loading cepat (total cuma ~700ms)
+    const timer1 = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 400); // 400ms loading nampil
+
+    const timer2 = setTimeout(() => {
+      setIsLoading(false);
+      setCurrentPage(pageId);
+      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    }, 700); // 300ms buat fade-out, total pas 700ms
+
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
   };
 
   return (
@@ -37,10 +52,11 @@ function App() {
       
       {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
       
-      {/* Navbar dibiarkan di bawah z-index overlay login/admin */}
       <NavbarPUPR onNavigate={handleNavigation} />
 
-      <main className="pt-[70px] md:pt-[80px]">
+      {/* --- Padding Top disesuaikan karena Navbar ada tambahan Running Text --- */}
+      <main className="pt-[110px] md:pt-[140px]">
+        
         {currentPage === 'landing' && <LandingPage onNavigate={handleNavigation} />}
 
         {currentPage === 'selayang-pandang' && (
@@ -51,11 +67,8 @@ function App() {
 
         {currentPage === 'geografis' && <InformasiGeografis />}
         {currentPage === 'berita' && <BeritaSection />}
-        
-        {/* --- UPDATE: RENDER HALAMAN PROSEDUR --- */}
         {currentPage === 'prosedur' && <ProsedurPage />}
 
-        {/* --- UPDATE: Hapus 'katalog' dari array sini karena udah diganti jadi 'prosedur' --- */}
         {['sekilas-info'].includes(currentPage) && (
           <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-slate-50">
             <span className="px-5 py-2 rounded-full bg-red-100 text-red-600 font-bold text-sm mb-6 shadow-sm border border-red-200">
@@ -74,20 +87,16 @@ function App() {
         )}
 
         {/* =========================================
-            HALAMAN LOGIN ADMIN (OVERLAY PENUH)
+            HALAMAN OVERLAY (LOGIN / DASHBOARD ADMIN)
             ========================================= */}
         {currentPage === 'login' && (
-          <div className="fixed inset-0 z-[200] bg-white">
+          <div className="fixed inset-0 z-[200] bg-white overflow-y-auto">
             <LoginAdmin onNavigate={handleNavigation} />
           </div>
         )}
 
-        {/* =========================================
-            HALAMAN DASHBOARD ADMIN (OVERLAY PENUH)
-            ========================================= */}
-        {/* Diubah jadi 'admin-dashboard' biar nyambung sama form login */}
         {currentPage === 'admin-dashboard' && (
-          <div className="fixed inset-0 z-[200] bg-white">
+          <div className="fixed inset-0 z-[200] bg-white overflow-y-auto">
             <AdminDashboard onNavigate={handleNavigation} />
           </div>
         )}
@@ -97,4 +106,4 @@ function App() {
   );
 }
 
-export default App;   
+export default App;
