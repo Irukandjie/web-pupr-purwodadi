@@ -6,13 +6,13 @@ const NavbarPUPR = ({ onNavigate }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   
-  // 1. Tambahkan state ini untuk melacak menu yang sedang aktif
   const [activeMenu, setActiveMenu] = useState('landing'); 
 
   const menuItems = [
     { name: 'Beranda', pageId: 'landing' },
     { name: 'Informasi', pageId: 'berita' },
-    { name: 'Prosedur', pageId: 'katalog' }, 
+    // --- UPDATE: Ubah pageId jadi 'prosedur' ---
+    { name: 'Prosedur', pageId: 'prosedur' }, 
     { name: 'Informasi Geografis', pageId: 'geografis' },
   ];
 
@@ -36,7 +36,6 @@ const NavbarPUPR = ({ onNavigate }) => {
 
   const handleMenuClick = (e, pageId) => {
     e.preventDefault();
-    // 2. Update state activeMenu saat menu diklik
     setActiveMenu(pageId); 
     if(onNavigate) onNavigate(pageId);
     setIsOpen(false);
@@ -45,7 +44,7 @@ const NavbarPUPR = ({ onNavigate }) => {
   return (
     <header className={`w-full fixed top-0 z-[100] transition-transform duration-500 ease-in-out transform ${!isMounted ? '-translate-y-full' : isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       
-      {/* 1. TOP BAR (Tema Merah Putih Khas Grobogan) */}
+      {/* TOP BAR */}
       <div className="hidden lg:block bg-red-700 text-red-50 py-2 border-b border-red-800 shadow-sm">
         <div className="container mx-auto px-6 max-w-[1400px] flex justify-between items-center text-[12px] font-semibold tracking-wide">
           
@@ -74,7 +73,7 @@ const NavbarPUPR = ({ onNavigate }) => {
         </div>
       </div>
 
-      {/* 2. MAIN NAVBAR */}
+      {/* MAIN NAVBAR */}
       <nav className="w-full bg-white shadow-md py-4 relative z-10 border-b border-gray-100">
         <div className="container mx-auto px-6 max-w-[1400px] flex justify-between items-center">
           
@@ -108,7 +107,6 @@ const NavbarPUPR = ({ onNavigate }) => {
                 key={index} 
                 href="#" 
                 onClick={(e) => handleMenuClick(e, item.pageId)} 
-                // 3. Ubah logika pengecekan dari "item.name === 'Beranda'" menjadi "activeMenu === item.pageId"
                 className={`relative hover:text-red-600 transition-colors duration-300 group py-2 ${activeMenu === item.pageId ? 'text-red-600' : ''}`}
               >
                 {item.name}
@@ -129,7 +127,6 @@ const NavbarPUPR = ({ onNavigate }) => {
                   key={`main-${index}`} 
                   href="#"
                   onClick={(e) => handleMenuClick(e, item.pageId)}
-                  // (Opsional) Highlight menu mobile yang aktif juga
                   className={`block px-4 py-3 rounded-xl font-bold hover:bg-red-50 hover:text-red-600 hover:pl-6 hover:shadow-sm transition-all duration-300 ${activeMenu === item.pageId ? 'bg-red-50 text-red-600 pl-6 shadow-sm' : 'text-[#1e293b]'}`}
                 >
                   {item.name}
