@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ScrollReveal from './ScrollReveal'; // Asumsi kamu masih pakai ini untuk animasi
+import ScrollReveal from './ScrollReveal'; 
 
 export default function ProsedurPage() {
   const [activeTab, setActiveTab] = useState('ketataruangan');
@@ -12,7 +12,6 @@ export default function ProsedurPage() {
     { id: 'pengendalian', label: 'Pengendalian Teknis', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
   ];
 
-  // Reusable Input Component biar rapi
   const InputGroup = ({ label, type = "text", placeholder, disabled = false }) => (
     <div className="mb-4">
       <label className="block text-sm font-semibold text-gray-700 mb-1.5">{label}</label>
@@ -93,31 +92,119 @@ export default function ProsedurPage() {
             <ScrollReveal direction="up">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10">
                 
-                {/* --- 1. PROSEDUR KETATARUANGAN (VIDEO) --- */}
+                {/* --- 1. PROSEDUR KETATARUANGAN (VIDEO ESTETIK) --- */}
                 {activeTab === 'ketataruangan' && (
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-800 mb-8 border-b pb-4">Prosedur Ketataruangan</h2>
-                    <div className="space-y-8">
-                      {/* Video 1 */}
-                      <div className="border border-gray-100 rounded-xl p-4 shadow-sm">
-                        <h3 className="font-bold text-slate-800 mb-3">1. Grobogan</h3>
-                        <div className="bg-gray-200 aspect-video rounded-lg flex items-center justify-center overflow-hidden">
-                          {/* Ganti src dengan link video asli nanti */}
-                          <video controls className="w-full h-full object-cover">
+                    <div className="flex items-center gap-3 mb-8 border-b border-gray-100 pb-4">
+                      <div className="bg-red-100 p-2.5 rounded-xl text-red-600">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      </div>
+                      <h2 className="text-2xl font-bold text-slate-800">Prosedur Ketataruangan</h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      
+                      {/* Video Card 1 */}
+                      <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden flex flex-col">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="bg-gray-50 text-gray-500 group-hover:bg-red-50 group-hover:text-red-500 p-2 rounded-full transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </span>
+                          <h3 className="font-bold text-slate-800 group-hover:text-red-600 transition-colors">1. Grobogan</h3>
+                        </div>
+
+                        <div className="bg-slate-900 rounded-xl overflow-hidden aspect-video relative shadow-inner group-hover:ring-4 group-hover:ring-red-50 transition-all">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            poster="https://i.ibb.co.com/gFcbSPf4/Kunjungan.jpg"
+                          >
                             <source src="#" type="video/mp4" />
                             Your browser does not support the video tag.
                           </video>
                         </div>
+                        <p className="mt-4 text-[13px] text-gray-500 leading-relaxed">
+                          Panduan visual prosedur ketataruangan wilayah Kabupaten Grobogan.
+                        </p>
                       </div>
-                      {/* Video 2 */}
-                      <div className="border border-gray-100 rounded-xl p-4 shadow-sm">
-                        <h3 className="font-bold text-slate-800 mb-3">2. Kab Grobogan</h3>
-                        <div className="bg-gray-200 aspect-video rounded-lg flex items-center justify-center overflow-hidden">
-                          <video controls className="w-full h-full object-cover">
+
+                      {/* Video Card 2 */}
+                      <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden flex flex-col">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="bg-gray-50 text-gray-500 group-hover:bg-amber-50 group-hover:text-amber-500 p-2 rounded-full transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </span>
+                          <h3 className="font-bold text-slate-800 group-hover:text-amber-600 transition-colors">2. Kab Grobogan</h3>
+                        </div>
+
+                        <div className="bg-slate-900 rounded-xl overflow-hidden aspect-video relative shadow-inner group-hover:ring-4 group-hover:ring-amber-50 transition-all">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            poster="https://i.ibb.co.com/cXvkFj5M/Jalan.jpg"
+                          >
                             <source src="#" type="video/mp4" />
                           </video>
                         </div>
+                        <p className="mt-4 text-[13px] text-gray-500 leading-relaxed">
+                          Dokumentasi dan simulasi pemetaan tata ruang wilayah secara komprehensif.
+                        </p>
                       </div>
+
+                      {/* Video Card 3 - Visit Grobogan */}
+                      <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden flex flex-col">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="bg-gray-50 text-gray-500 group-hover:bg-emerald-50 group-hover:text-emerald-500 p-2 rounded-full transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </span>
+                          <h3 className="font-bold text-slate-800 group-hover:text-emerald-600 transition-colors">3. Visit Grobogan</h3>
+                        </div>
+
+                        <div className="bg-slate-900 rounded-xl overflow-hidden aspect-video relative shadow-inner group-hover:ring-4 group-hover:ring-emerald-50 transition-all">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            poster="https://i.ibb.co.com/r2sfXYzX/Kontrak.jpg" // Bisa diganti gambar lain kalau punya
+                          >
+                            <source src="#" type="video/mp4" />
+                          </video>
+                        </div>
+                        <p className="mt-4 text-[13px] text-gray-500 leading-relaxed">
+                          Video dokumenter pariwisata dan potensi wilayah dari Kabupaten Grobogan.
+                        </p>
+                      </div>
+
+                      {/* Video Card 4 - Sekilas Grobogan */}
+                      <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden flex flex-col">
+                        <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="bg-gray-50 text-gray-500 group-hover:bg-blue-50 group-hover:text-blue-500 p-2 rounded-full transition-colors">
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </span>
+                          <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">4. Sekilas Grobogan</h3>
+                        </div>
+
+                        <div className="bg-slate-900 rounded-xl overflow-hidden aspect-video relative shadow-inner group-hover:ring-4 group-hover:ring-blue-50 transition-all">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            poster="https://i.ibb.co.com/7J5XfWxq/Rapat.jpg" // Bisa diganti gambar lain kalau punya
+                          >
+                            <source src="#" type="video/mp4" />
+                          </video>
+                        </div>
+                        <p className="mt-4 text-[13px] text-gray-500 leading-relaxed">
+                          Gambaran umum dan potret sekilas kemajuan infrastruktur Kabupaten Grobogan.
+                        </p>
+                      </div>
+
                     </div>
                   </div>
                 )}
