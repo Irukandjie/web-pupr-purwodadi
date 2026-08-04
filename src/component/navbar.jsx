@@ -106,7 +106,7 @@ const NavbarPUPR = () => {
           <a href="/" className="flex items-center gap-3.5 no-underline text-black group transition-all duration-300 hover:scale-[1.02]">
             <img 
               src="https://i.ibb.co.com/MyjRST6N/IMG-20260730-WA0012-1785396069965.jpg"
-              alt="Logo DPUPR"
+              alt="Logo SINTARAMA"
               className="object-contain drop-shadow-sm h-[55px] md:h-[62px] transition-transform duration-300 group-hover:drop-shadow-md"
               onError={(e) => { e.target.src = 'https://placehold.co/60x60/cccccc/000000?text=Logo'; }}
             />
@@ -115,10 +115,10 @@ const NavbarPUPR = () => {
                 Pemerintah Kabupaten Grobogan
               </span>
               <span className="font-black leading-none uppercase text-[#0F172A] text-[18px] md:text-[22px] tracking-wide mb-1">
-                Dinas Pekerjaan Umum
+                SINTARAMA
               </span>
-              <span className="font-bold leading-none uppercase text-[#E87500] text-[15px] md:text-[18px] tracking-wide">
-                Dan Penataan Ruang
+              <span className="font-bold leading-none uppercase text-[#E87500] text-[10px] md:text-[11px] tracking-wide">
+                Sistem Informasi Tata Ruang & Masyarakat
               </span>
             </div>
           </a>
