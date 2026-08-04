@@ -5,30 +5,31 @@ const BeritaSection = () => {
   const [activeTab, setActiveTab] = useState('Berita');
   const menuTabs = ['Berita', 'Dasar Hukum', 'Album Peta'];
 
+  // --- BERITA DI-UPDATE MENGGUNAKAN GAMBAR BARU ---
   const beritaData = [
     {
       id: 1, kategori: "Kegiatan", tanggal: "01 Desember 2020",
       judul: "Penandatanganan Kontrak Kegiatan Pembangunan Jalan Dana Banprov",
       ringkasan: "Langkah awal dimulainya proyek perbaikan infrastruktur jalan utama guna menunjang mobilitas warga.",
-      gambar: "https://placehold.co/600x400/1e293b/ffffff"
+      gambar: "https://i.ibb.co.com/r2sfXYzX/Kontrak.jpg" // Gambar Kontrak
     },
     {
       id: 2, kategori: "Infrastruktur", tanggal: "30 November 2020",
       judul: "Peningkatan Jalan Monggot-Bangsri Kecamatan Geyer Telah Dimulai",
       ringkasan: "Proyek jalan ini ditargetkan selesai dalam waktu dekat menggunakan material cor beton kualitas tinggi.",
-      gambar: "https://placehold.co/600x400/475569/ffffff"
+      gambar: "https://i.ibb.co.com/F400nVPm/Jalan.jpg" // Gambar Jalan
     },
     {
       id: 3, kategori: "Kunjungan", tanggal: "29 November 2020",
       judul: "Kunjungan Lapangan Tim BPK Perwakilan Provinsi Jawa Tengah",
       ringkasan: "Tim audit melakukan inspeksi standar kualitas material dan proses pengerjaan jalan agar sesuai standar.",
-      gambar: "https://placehold.co/600x400/334155/ffffff"
+      gambar: "https://i.ibb.co.com/KjSHrSp5/Kunjungan.jpg" // Gambar Kunjungan
     },
     {
       id: 4, kategori: "Rapat", tanggal: "15 November 2020",
       judul: "Rapat Koordinasi Evaluasi Tata Ruang Q4 2020",
       ringkasan: "Pembahasan mendalam mengenai penataan ruang terbuka hijau di area publik Kabupaten Grobogan.",
-      gambar: "https://placehold.co/600x400/64748b/ffffff"
+      gambar: "https://placehold.co/600x400/64748b/ffffff" // Tetap placeholder karena cuma ada 3 gambar
     }
   ];
 
