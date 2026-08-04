@@ -1,76 +1,43 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 const SambutanSection = () => {
-  // State buat nge-track apakah section ini udah kelihatan di layar atau belum
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    // Setting observer buat ngedeteksi scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // Kalau masuk viewport (layar), trigger animasinya
           if (entry.isIntersecting) {
             setIsVisible(true);
-            // Stop observe biar animasinya cuma jalan sekali aja
             observer.unobserve(entry.target);
           }
         });
       },
-      {
-        threshold: 0.2, // Trigger animasi kalau 20% bagian section udah kelihatan
-      }
+      { threshold: 0.2 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) observer.unobserve(sectionRef.current);
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
   }, []);
 
   return (
-    <section 
-      id="informasi" 
-      ref={sectionRef} 
-      className="py-20 bg-gradient-to-br from-[#e0f2fe] via-[#f3e8ff] to-[#fce7f3] relative overflow-hidden"
-    >
+    <section id="sambutan" ref={sectionRef} className="py-20 bg-gradient-to-br from-slate-50 via-white to-red-50/30 relative overflow-hidden rounded-[2rem] border border-gray-100 shadow-sm mx-4 md:mx-0">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-12 md:gap-16">
           
-          {/* Kolom Foto Kiri (Animasi Slide dari Kiri) */}
-          <div 
-            className={`w-full md:w-1/3 flex justify-center shrink-0 transform transition-all duration-1000 ease-out ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-24'
-            }`}
-          >
+          <div className={`w-full md:w-1/3 flex justify-center shrink-0 transform transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-24'}`}>
             <div className="relative group">
-              {/* Efek bayangan di belakang foto biar lebih 3D/Pop-out */}
-              <div className="absolute inset-0 bg-black/10 translate-x-3 translate-y-3 blur-sm transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-4"></div>
-              
-              {/* Foto Kepala Dinas - Ganti src pakai foto aslinya nanti */}
-              <img 
-                src="https://placehold.co/400x550/ff0000/ffffff?text=Foto+Kadin" 
-                alt="Kepala Dinas PUPR" 
-                className="relative z-10 w-full max-w-[280px] h-auto shadow-md border-4 border-white object-cover transition-transform duration-300 group-hover:-translate-y-1"
-              />
+              <div className="absolute inset-0 bg-red-600/10 translate-x-3 translate-y-3 blur-sm transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-4 rounded-xl"></div>
+              <img src="https://placehold.co/400x550/dc2626/ffffff?text=Foto+Kadin" alt="Kepala Dinas PUPR" className="relative z-10 w-full max-w-[280px] h-auto shadow-lg border-4 border-white object-cover transition-transform duration-300 group-hover:-translate-y-1 rounded-xl" />
             </div>
           </div>
 
-          {/* Kolom Teks Kanan (Animasi Fade Up dari Bawah dengan Delay) */}
-          <div 
-            className={`w-full md:w-2/3 transform transition-all duration-1000 delay-300 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
-            }`}
-          >
-            <h3 className="text-[#ec4899] font-bold tracking-widest uppercase mb-6 text-sm md:text-base">
-              Sambutan
+          <div className={`w-full md:w-2/3 transform transition-all duration-1000 delay-300 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
+            <h3 className="text-red-600 font-bold tracking-widest uppercase mb-6 text-sm md:text-base flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-red-600 block"></span> Sambutan
             </h3>
             
-            <div className="text-gray-700 leading-relaxed text-justify space-y-4 text-[15px] md:text-base">
+            <div className="text-gray-600 leading-relaxed text-justify space-y-4 text-[15px] md:text-lg">
               <p>
                 Website Dinas Pekerjaan Umum Kabupaten Purwodadi hadir sebagai sarana
                 informasi publik yang transparan dan mudah diakses, guna mendukung
@@ -86,11 +53,10 @@ const SambutanSection = () => {
               </p>
             </div>
 
-            {/* Bagian Tanda Tangan / Nama */}
-            <div className="mt-10 pt-6 border-t border-gray-300/50">
-              <p className="text-gray-600 mb-2 italic">Salam hormat,</p>
-              <p className="font-bold text-[#1e293b] text-lg">ADALAH, S.E., M.T.</p>
-              <p className="text-gray-500 text-sm">Kepala Dinas Pekerjaan Umum Kabupaten Purwodadi</p>
+            <div className="mt-10 pt-6 border-t border-gray-200">
+              <p className="text-gray-500 mb-1 italic">Salam hormat,</p>
+              <p className="font-black text-slate-800 text-xl group-hover:text-red-600 transition-colors">SUWARTO, S.E., M.T.</p>
+              <p className="text-red-600 font-semibold text-sm">Kepala Dinas Pekerjaan Umum Kabupaten Purwodadi</p>
             </div>
           </div>
 

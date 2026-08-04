@@ -1,70 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import ScrollReveal from './ScrollReveal';
 
 const HeroSection = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  // Trigger animasi saat komponen ini dimuat di browser
-  useEffect(() => {
-    // Kasih sedikit delay biar nunggu navbar turun dulu
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <section id="hero" className="relative w-full h-screen min-h-[600px] overflow-hidden flex items-center bg-gray-900">
-      
-      <div className={`absolute inset-0 w-full h-full z-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <video 
-          autoPlay loop muted playsInline
-          className="w-full h-full object-cover scale-105" 
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/80"></div>
-      </div>
+    <section id="hero" className="w-full bg-white pt-6 pb-10">
+      <div className="container mx-auto px-4 max-w-[1400px]">
+        <ScrollReveal direction="up">
+          <div className="relative w-full h-[450px] rounded-[2rem] overflow-hidden flex shadow-sm border border-red-50">
+            
+            {/* Latar Belakang Gradient Soft Pink */}
+            <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-red-50/80 to-white z-0"></div>
 
-      <button className="absolute left-4 md:left-8 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full text-white transition-all">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-      </button>
-
-      <div className="relative z-10 container mx-auto px-12 md:px-24 h-full flex flex-col lg:flex-row items-center justify-between gap-8 pt-16">
-        
-        {/* Foto Pejabat muncul dari bawah */}
-        <div className={`flex-1 w-full flex justify-center lg:justify-start items-end h-full pt-10 transform transition-all duration-1000 delay-300 ease-out ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
-          <div className="relative w-[300px] h-[400px] md:w-[450px] md:h-[550px]">
-            <div className="absolute bottom-0 w-full h-full bg-white/10 border-2 border-white/20 rounded-t-[100px] backdrop-blur-md flex flex-col items-center justify-end pb-8 shadow-2xl">
-              <svg className="w-32 h-32 text-white/50 mb-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
-              <div className="bg-red-700/90 text-white px-6 py-2 rounded-md font-bold shadow-lg text-center backdrop-blur-sm border border-red-500">
-                <p className="text-sm md:text-base">Nama Pejabat 1, ST., MT.</p>
-                <p className="text-[10px] md:text-xs font-normal">Kepala Dinas PUPR</p>
+            {/* Pattern Dots */}
+            <div className="absolute inset-0 opacity-20 z-0" style={{ backgroundImage: 'radial-gradient(#ef4444 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+            
+            {/* Bagian Teks (Kiri) */}
+            <div className="relative z-20 flex-1 flex flex-col justify-center p-12 md:p-16 w-full md:w-1/2 text-slate-800">
+              <span className="text-[11px] font-bold tracking-widest uppercase mb-4 text-red-500">SINTARAMA</span>
+              <h1 className="text-4xl md:text-[42px] font-black leading-tight mb-6 tracking-tight max-w-xl text-slate-800">
+                Sistem Informasi Tata Ruang Masyarakat Kabupaten Grobogan
+              </h1>
+              <p className="text-slate-500 text-base md:text-lg mb-10 max-w-md leading-relaxed">
+                Platform informasi publik yang menyediakan akses mudah terhadap data, layanan, dan informasi terkini dari DPUPR Kabupaten Grobogan.
+              </p>
+              <div>
+                <button className="bg-white text-red-600 border-2 border-red-500 px-8 py-3.5 rounded-full font-bold shadow-sm hover:bg-red-50 transition-all flex items-center gap-3 group">
+                  Jelajahi Layanan
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
               </div>
             </div>
+
+            {/* Bagian Gambar Gedung (Kanan) dengan Fade Edge */}
+            <div className="absolute right-0 top-0 w-full md:w-[55%] h-full z-10 flex justify-end">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-50 via-transparent to-transparent z-10"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1541888049-74d320fb7240?q=80&w=2070&auto=format&fit=crop" 
+                alt="Gedung DPUPR Grobogan" 
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
+
           </div>
-        </div>
-
-        {/* Teks tipografi meluncur dari arah kanan */}
-        <div className={`flex-1 w-full text-center lg:text-right pb-10 lg:pb-0 transform transition-all duration-1000 delay-500 ease-out ${isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-16 opacity-0'}`}>
-          <p className="text-yellow-400 font-bold tracking-widest uppercase text-sm md:text-lg mb-2 drop-shadow-md">
-            Pemerintah Kabupaten Purwodadi
-          </p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight drop-shadow-2xl uppercase font-serif">
-            Membangun <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-600">Infrastruktur</span>
-          </h1>
-          <h2 className="text-2xl md:text-4xl font-bold text-gray-200 mt-2 tracking-wide drop-shadow-lg uppercase">
-            Memajukan Daerah
-          </h2>
-          <p className="text-white/90 italic text-sm md:text-lg mt-8 border-r-4 border-yellow-500 pr-4 inline-block drop-shadow-md">
-            "Sambut pembangunan dengan sepenuh hati, saatnya berinovasi agar menjadi daerah yang lebih baik lagi"
-          </p>
-        </div>
-
+        </ScrollReveal>
       </div>
-
-      <button className="absolute right-4 md:right-8 z-20 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full text-white transition-all">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-      </button>
-
     </section>
   );
 };
