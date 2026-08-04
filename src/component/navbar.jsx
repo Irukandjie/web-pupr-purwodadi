@@ -5,6 +5,9 @@ const NavbarPUPR = ({ onNavigate }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  
+  // 1. Tambahkan state ini untuk melacak menu yang sedang aktif
+  const [activeMenu, setActiveMenu] = useState('landing'); 
 
   const menuItems = [
     { name: 'Beranda', pageId: 'landing' },
@@ -33,6 +36,8 @@ const NavbarPUPR = ({ onNavigate }) => {
 
   const handleMenuClick = (e, pageId) => {
     e.preventDefault();
+    // 2. Update state activeMenu saat menu diklik
+    setActiveMenu(pageId); 
     if(onNavigate) onNavigate(pageId);
     setIsOpen(false);
   };
@@ -61,7 +66,7 @@ const NavbarPUPR = ({ onNavigate }) => {
                 {item.name}
               </a>
             ))}
-            <a href="#" className="bg-white text-red-700 hover:bg-amber-400 hover:text-white px-5 py-1.5 rounded flex items-center gap-2 font-bold transition-all shadow-sm">
+            <a href="#" onClick={(e) => handleMenuClick(e, 'login')} className="bg-white text-red-700 hover:bg-amber-400 hover:text-white px-5 py-1.5 rounded flex items-center gap-2 font-bold transition-all shadow-sm">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
               Login Admin
             </a>
@@ -88,21 +93,74 @@ const NavbarPUPR = ({ onNavigate }) => {
             </div>
           </a>
 
+          <button 
+            className="lg:hidden text-gray-800 focus:outline-none hover:bg-amber-50 hover:text-red-600 p-2 rounded-xl transition-all duration-300 active:scale-95"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
+
           <div className="hidden lg:flex items-center gap-8 text-[14px] font-bold text-[#1e293b]">
             {menuItems.map((item, index) => (
               <a 
                 key={index} 
                 href="#" 
                 onClick={(e) => handleMenuClick(e, item.pageId)} 
-                className={`relative hover:text-red-600 transition-colors duration-300 group py-2 ${item.name === 'Beranda' ? 'text-red-600' : ''}`}
+                // 3. Ubah logika pengecekan dari "item.name === 'Beranda'" menjadi "activeMenu === item.pageId"
+                className={`relative hover:text-red-600 transition-colors duration-300 group py-2 ${activeMenu === item.pageId ? 'text-red-600' : ''}`}
               >
                 {item.name}
-                <span className={`absolute left-0 bottom-0 w-full h-[3px] bg-red-600 transition-transform duration-300 origin-center rounded-full ${item.name === 'Beranda' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                <span className={`absolute left-0 bottom-0 w-full h-[3px] bg-red-600 transition-transform duration-300 origin-center rounded-full ${activeMenu === item.pageId ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
               </a>
             ))}
           </div>
 
         </div>
+
+        {/* Mobile Dropdown */}
+        <div className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out bg-white border-t border-gray-100 shadow-xl absolute w-full left-0 ${isOpen ? 'max-h-[500px] opacity-100 mt-3 py-2' : 'max-h-0 opacity-0'}`}>
+          <div className="px-4 flex flex-col gap-1">
+            <div className="pb-3 border-b border-gray-100">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 px-3 mt-2">Menu Utama</p>
+              {menuItems.map((item, index) => (
+                <a 
+                  key={`main-${index}`} 
+                  href="#"
+                  onClick={(e) => handleMenuClick(e, item.pageId)}
+                  // (Opsional) Highlight menu mobile yang aktif juga
+                  className={`block px-4 py-3 rounded-xl font-bold hover:bg-red-50 hover:text-red-600 hover:pl-6 hover:shadow-sm transition-all duration-300 ${activeMenu === item.pageId ? 'bg-red-50 text-red-600 pl-6 shadow-sm' : 'text-[#1e293b]'}`}
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+            
+            <div className="pt-2 pb-3">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 px-3">Informasi & Akses</p>
+              {utilityLinks.map((item, index) => (
+                <a 
+                  key={`util-${index}`} 
+                  href="#"
+                  onClick={(e) => handleMenuClick(e, item.pageId)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:pl-6 transition-all duration-300"
+                >
+                  {item.name}
+                </a>
+              ))}
+              <a 
+                href="#"
+                onClick={(e) => handleMenuClick(e, 'login')}
+                className="mt-2 mx-4 flex items-center justify-center gap-2 bg-red-600 text-white px-4 py-3 rounded-xl font-bold hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-sm"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                Login Admin
+              </a>
+            </div>
+          </div>
+        </div>
+
       </nav>
     </header>
   );

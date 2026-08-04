@@ -19,10 +19,27 @@ const InformasiGeografis = () => {
     { kota: 'Surakarta', jarak: '± 64 Km' },
   ];
 
+  // Data ini sudah disesuaikan dengan gambar
   const dataKecamatan = [
     { no: 1, nama: 'Kedungjati', desa: 12, dusun: 76, luas: '130,342' },
     { no: 2, nama: 'Karangrayung', desa: 19, dusun: 100, luas: '140,595' },
-    { no: 3, nama: 'Penawangan', desa: 20, dusun: 71, luas: '74,177' }
+    { no: 3, nama: 'Penawangan', desa: 20, dusun: 71, luas: '74,177' },
+    { no: 4, nama: 'Toroh', desa: 16, dusun: 118, luas: '119,320' },
+    { no: 5, nama: 'Geyer', desa: 13, dusun: 102, luas: '196,192' },
+    { no: 6, nama: 'Pulokulon', desa: 13, dusun: 112, luas: '133,644' },
+    { no: 7, nama: 'Kradenan', desa: 14, dusun: 79, luas: '107,748' },
+    { no: 8, nama: 'Gabus', desa: 14, dusun: 87, luas: '165,365' },
+    { no: 9, nama: 'Ngaringan', desa: 12, dusun: 78, luas: '116,720' },
+    { no: 10, nama: 'Wirosari', desa: 14, dusun: 86, luas: '154,298' },
+    { no: 11, nama: 'Tawangharjo', desa: 10, dusun: 58, luas: '83,602' },
+    { no: 12, nama: 'Grobogan', desa: 12, dusun: 52, luas: '104,556' },
+    { no: 13, nama: 'Purwodadi', desa: 17, dusun: 104, luas: '77,656' },
+    { no: 14, nama: 'Brati', desa: 9, dusun: 51, luas: '54,891' },
+    { no: 15, nama: 'Klambu', desa: 9, dusun: 44, luas: '46,562' },
+    { no: 16, nama: 'Godong', desa: 28, dusun: 86, luas: '86,780' },
+    { no: 17, nama: 'Gubug', desa: 21, dusun: 63, luas: '71,119' },
+    { no: 18, nama: 'Tegowanu', desa: 18, dusun: 54, luas: '51,670' },
+    { no: 19, nama: 'Tanggungharjo', desa: 9, dusun: 31, luas: '60,628' }
   ];
 
   return (
