@@ -7,22 +7,22 @@ export default function LandingPage({ onNavigate }) {
   // State buat ganti-ganti tab di Portal Informasi
   const [activeTab, setActiveTab] = useState('Berita Terbaru');
 
-  // --- BERITA DI-UPDATE MENGGUNAKAN GAMBAR BARU ---
+  // --- BERITA DI-UPDATE MENGGUNAKAN JUDUL ASLI DAN GAMBAR BARU ---
   const beritaBeranda = [
     {
       kategori: "Kegiatan", date: "01 Desember 2020",
-      title: "Penandatanganan Kontrak Kegiatan Pembangunan Jalan...",
-      img: "https://i.ibb.co.com/r2sfXYzX/Kontrak.jpg" // Gambar Kontrak
+      title: "Penandatanganan Kontrak Kegiatan Pembangunan Jalan Dana Banprov 2020 di Kabupaten Grobogan",
+      img: "https://i.ibb.co.com/7J5XfWxq/Rapat.jpg" // Gambar Rapat
     },
     {
       kategori: "Infrastruktur", date: "30 November 2020",
-      title: "Peningkatan Jalan Monggot-Bangsri Kecamatan Geyer...",
-      img: "https://i.ibb.co.com/F400nVPm/Jalan.jpg" // Gambar Jalan
+      title: "Peningkatan Jalan Monggot-Bangsri Kecamatan Geyer Telah dimulai",
+      img: "https://i.ibb.co.com/cXvkFj5M/Jalan.jpg" // Gambar Jalan
     },
     {
       kategori: "Kunjungan", date: "29 November 2020",
-      title: "Kunjungan Lapangan Tim BPK Perwakilan Provinsi...",
-      img: "https://i.ibb.co.com/KjSHrSp5/Kunjungan.jpg" // Gambar Kunjungan
+      title: "Kunjungan Lapangan Tim BPK Perwakilan Provinsi Jawa Tengah di kegiatan Peningkatan Jl. Monggot Bangsri (Banprov 2020)",
+      img: "https://i.ibb.co.com/gFcbSPf4/Kunjungan.jpg" // Gambar Kunjungan
     }
   ];
 
@@ -92,20 +92,30 @@ export default function LandingPage({ onNavigate }) {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5 flex-grow">
                   {beritaBeranda.map((item, idx) => (
                     <ScrollReveal key={idx} direction="up" delay={`delay-${(idx+1)*100}`} className="flex">
-                      <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:border-red-200 cursor-pointer group transition-all duration-300 flex flex-col w-full">
-                        <div className="h-36 bg-gray-200 relative overflow-hidden">
+                      
+                      {/* CARD DENGAN EFEK HOVER SPOTLIGHT */}
+                      <div className="relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-1 hover:border-red-200 cursor-pointer group transition-all duration-500 flex flex-col w-full">
+                        
+                        {/* Efek Spotlight di atas card saat hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10"></div>
+                        
+                        <div className="h-40 bg-gray-200 relative overflow-hidden">
                           <img src={item.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={item.title} />
-                          <span className="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm">{item.kategori}</span>
+                          {/* Overlay gelap sedikit di gambar saat hover biar teks makin pop-up kalau ada */}
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10"></div>
+                          <span className="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-sm z-20">{item.kategori}</span>
                         </div>
-                        <div className="p-5 flex flex-col flex-grow">
+                        
+                        <div className="p-5 flex flex-col flex-grow relative z-20">
                           <p className="text-[11px] font-bold text-gray-400 mb-2">{item.date}</p>
-                          <h4 className="text-[14px] font-bold text-slate-800 leading-snug mb-4 group-hover:text-red-600 transition-colors flex-grow">{item.title}</h4>
+                          <h4 className="text-[14px] font-bold text-slate-800 leading-snug mb-4 group-hover:text-red-600 transition-colors flex-grow line-clamp-4">{item.title}</h4>
                           <span className="text-red-600 text-[12px] font-bold group-hover:text-amber-500 flex items-center gap-1.5 mt-auto transition-colors">
                             Baca Selengkapnya 
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            <svg className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                           </span>
                         </div>
                       </div>
+
                     </ScrollReveal>
                   ))}
                 </div>
