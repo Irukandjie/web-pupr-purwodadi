@@ -1,60 +1,64 @@
 import React, { useState, useEffect } from 'react';
 
-// Import semua komponen
-import LoadingScreen from './component/LoadingScreen.jsx';
-import NavbarPUPR from './component/navbar.jsx';
-import HeroSection from './component/hero.jsx';
-import SambutanSection from './component/sambutan.jsx';
-import ServicesSection from './component/services.jsx';
-import SistemInformasiSection from './component/sistem-informasi.jsx';
-import BeritaSection from './component/berita.jsx';
+import NavbarPUPR from './component/navbar'; 
+import LandingPage from './component/Landingpage'; 
+import InformasiGeografis from './component/InformasiGeografis';
+import BeritaSection from './component/berita';
+import LoadingScreen from './component/LoadingScreen';
+import SambutanSection from './component/sambutan';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('landing');
   const [isLoading, setIsLoading] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  
-  // Deteksi URL yang lagi dibuka sekarang
-  const currentPath = window.location.pathname;
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsFadingOut(true); 
-      setTimeout(() => setIsLoading(false), 700);
-    }, 2000);
-    return () => clearTimeout(timer);
+    const timer1 = setTimeout(() => setIsFadingOut(true), 2000); 
+    const timer2 = setTimeout(() => setIsLoading(false), 2700); 
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
+  const handleNavigation = (pageId) => {
+    setCurrentPage(pageId);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+  };
+
   return (
-    <>
+    <div className="font-sans antialiased text-slate-900 bg-white min-h-screen">
+      
       {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
+      <NavbarPUPR onNavigate={handleNavigation} />
 
-      <div className="min-h-screen bg-gray-50 font-sans scroll-smooth">
-        
-        {/* Navbar selalu muncul di semua halaman */}
-        <NavbarPUPR />
-        
-        {/* LOGIKA PEMISAH HALAMAN */}
-        {currentPath.includes('/berita') ? (
-          
-          /* JIKA URL ADALAH /berita, TAMPILKAN INI SAJA */
-          <div className="pt-8">
-            <BeritaSection />
-          </div>
+      <main className="pt-[70px] md:pt-[80px]">
+        {currentPage === 'landing' && <LandingPage onNavigate={handleNavigation} />}
 
-        ) : (
-
-          /* JIKA BERADA DI BERANDA (/), TAMPILKAN SEMUA INI */
-          <>
-            <HeroSection />
+        {currentPage === 'selayang-pandang' && (
+          <div className="min-h-screen flex items-center justify-center pt-10 pb-10 bg-slate-50">
             <SambutanSection />
-            <ServicesSection />
-            <SistemInformasiSection />
-          </>
-
+          </div>
         )}
 
-      </div>
-    </>
+        {currentPage === 'geografis' && <InformasiGeografis />}
+        {currentPage === 'berita' && <BeritaSection />}
+
+        {['katalog', 'sekilas-info'].includes(currentPage) && (
+          <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 bg-slate-50">
+            <span className="px-5 py-2 rounded-full bg-red-100 text-red-600 font-bold text-sm mb-6 shadow-sm border border-red-200">
+              Dalam Pengembangan
+            </span>
+            <h1 className="text-3xl md:text-5xl font-black text-slate-800 mb-6 tracking-tight">
+              Halaman Segera Hadir
+            </h1>
+            <p className="text-slate-500 mb-10 max-w-lg mx-auto text-lg leading-relaxed">
+              Halaman ini sedang dalam tahap pengumpulan data dan penyusunan sistem.
+            </p>
+            <button onClick={() => handleNavigation('landing')} className="px-8 py-3.5 bg-red-600 text-white border-2 border-red-600 font-bold rounded-full shadow-lg hover:bg-amber-500 hover:border-amber-500 hover:-translate-y-1 transition-all duration-300">
+              Kembali ke Beranda
+            </button>
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 
