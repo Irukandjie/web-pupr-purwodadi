@@ -11,7 +11,6 @@ const NavbarPUPR = ({ onNavigate }) => {
   const menuItems = [
     { name: 'Beranda', pageId: 'landing' },
     { name: 'Informasi', pageId: 'berita' },
-    // --- UPDATE: Ubah pageId jadi 'prosedur' ---
     { name: 'Prosedur', pageId: 'prosedur' }, 
     { name: 'Informasi Geografis', pageId: 'geografis' },
   ];
@@ -44,77 +43,71 @@ const NavbarPUPR = ({ onNavigate }) => {
   return (
     <header className={`w-full fixed top-0 z-[100] transition-transform duration-500 ease-in-out transform ${!isMounted ? '-translate-y-full' : isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       
-      {/* TOP BAR */}
-      <div className="hidden lg:block bg-red-700 text-red-50 py-2 border-b border-red-800 shadow-sm">
+      {/* =========================================
+          1. TOP BAR (MERAH)
+          ========================================= */}
+      <div className="hidden lg:block bg-red-700 text-red-50 py-2 border-b border-red-800 shadow-sm relative z-20">
         <div className="container mx-auto px-6 max-w-[1400px] flex justify-between items-center text-[12px] font-semibold tracking-wide">
-          
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 hover:text-amber-300 transition-colors cursor-default">
-              <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-              (0292) 544256
-            </span>
-            <span className="flex items-center gap-2 hover:text-amber-300 transition-colors cursor-default">
-              <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-              dpupr@grobogan.go.id
-            </span>
+            <span className="flex items-center gap-2 hover:text-amber-300 transition-colors cursor-default">(0292) 544256</span>
+            <span className="flex items-center gap-2 hover:text-amber-300 transition-colors cursor-default">dpupr@grobogan.go.id</span>
           </div>
 
           <div className="flex items-center gap-6">
             {utilityLinks.map((item, index) => (
-              <a key={index} href="#" onClick={(e) => handleMenuClick(e, item.pageId)} className="text-red-50 hover:text-amber-300 transition-colors">
-                {item.name}
-              </a>
+              <a key={index} href="#" onClick={(e) => handleMenuClick(e, item.pageId)} className="text-red-50 hover:text-amber-300 transition-colors">{item.name}</a>
             ))}
-            <a href="#" onClick={(e) => handleMenuClick(e, 'login')} className="bg-white text-red-700 hover:bg-amber-400 hover:text-white px-5 py-1.5 rounded flex items-center gap-2 font-bold transition-all shadow-sm">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
-              Login Admin
+            
+            {/* Button Login Admin Desktop */}
+            <a href="#" onClick={(e) => handleMenuClick(e, 'login')} className="relative overflow-hidden group bg-white text-red-700 hover:bg-red-600 hover:text-white px-5 py-1.5 rounded flex items-center gap-2 font-bold transition-all duration-500 shadow-sm hover:shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+              <span className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/20 backdrop-blur-md transition-all duration-500 z-0"></span>
+              <span className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/50 to-transparent transform -skew-x-12 group-hover:left-[200%] transition-all duration-1000 ease-out z-0"></span>
+              <span className="relative z-10 flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                Login Admin
+              </span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* MAIN NAVBAR */}
-      <nav className="w-full bg-white shadow-md py-4 relative z-10 border-b border-gray-100">
+      {/* =========================================
+          2. MAIN NAVBAR (PUTIH)
+          ========================================= */}
+      <nav className="w-full bg-white shadow-sm py-4 relative z-20 border-b border-gray-100">
         <div className="container mx-auto px-6 max-w-[1400px] flex justify-between items-center">
-          
           <a href="/" onClick={(e) => handleMenuClick(e, 'landing')} className="flex items-center gap-4 no-underline text-black group">
             <img src="https://i.ibb.co.com/MyjRST6N/IMG-20260730-WA0012-1785396069965.jpg" alt="Logo" className="object-contain h-[55px] md:h-[65px]" />
             <div className="flex flex-col justify-center">
-              <span className="font-black leading-none uppercase text-slate-800 text-[22px] tracking-wide group-hover:text-red-600 transition-colors">
-                SINTARAMA
-              </span>
-              <span className="font-semibold leading-tight uppercase text-gray-500 text-[10px] mt-0.5">
-                SISTEM INFORMASI TATA RUANG MASYARAKAT
-              </span>
-              <span className="font-bold leading-none uppercase text-amber-500 text-[11px] tracking-wide mt-1">
-                KABUPATEN GROBOGAN
-              </span>
+              <span className="font-black leading-none uppercase text-slate-800 text-[22px] tracking-wide group-hover:text-red-600 transition-colors">SINTARAMA</span>
+              <span className="font-semibold leading-tight uppercase text-gray-500 text-[10px] mt-0.5">SISTEM INFORMASI TATA RUANG MASYARAKAT</span>
             </div>
           </a>
 
-          <button 
-            className="lg:hidden text-gray-800 focus:outline-none hover:bg-amber-50 hover:text-red-600 p-2 rounded-xl transition-all duration-300 active:scale-95"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-            </svg>
+          <button className="lg:hidden text-gray-800 focus:outline-none hover:bg-amber-50 hover:text-red-600 p-2 rounded-xl transition-all duration-300 active:scale-95" onClick={() => setIsOpen(!isOpen)}>
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
           </button>
 
-          <div className="hidden lg:flex items-center gap-8 text-[14px] font-bold text-[#1e293b]">
+          {/* DESKTOP MENU - Liquid Glass & Rounded Tipis (Ala iPhone) */}
+          <div className="hidden lg:flex items-center gap-2 text-[14px] font-bold text-[#1e293b]">
             {menuItems.map((item, index) => (
               <a 
                 key={index} 
                 href="#" 
                 onClick={(e) => handleMenuClick(e, item.pageId)} 
-                className={`relative hover:text-red-600 transition-colors duration-300 group py-2 ${activeMenu === item.pageId ? 'text-red-600' : ''}`}
+                className={`relative overflow-hidden px-4 py-2 rounded-xl transition-all duration-300 group ${activeMenu === item.pageId ? 'text-red-600' : 'text-slate-600 hover:text-red-600'}`}
               >
-                {item.name}
-                <span className={`absolute left-0 bottom-0 w-full h-[3px] bg-red-600 transition-transform duration-300 origin-center rounded-full ${activeMenu === item.pageId ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                {/* Background Glass (Active & Hover) */}
+                <span className={`absolute inset-0 w-full h-full transition-all duration-300 z-0 ${activeMenu === item.pageId ? 'bg-red-50 shadow-sm' : 'bg-transparent group-hover:bg-slate-50 backdrop-blur-sm'}`}></span>
+                
+                {/* Efek Liquid Glass / Shine (Animasi kilat putih) */}
+                <span className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/90 to-transparent transform -skew-x-12 group-hover:left-[200%] transition-all duration-1000 ease-out z-0"></span>
+                
+                {/* Teks Menu */}
+                <span className="relative z-10 flex items-center justify-center">{item.name}</span>
               </a>
             ))}
           </div>
-
         </div>
 
         {/* Mobile Dropdown */}
@@ -125,40 +118,83 @@ const NavbarPUPR = ({ onNavigate }) => {
               {menuItems.map((item, index) => (
                 <a 
                   key={`main-${index}`} 
-                  href="#"
-                  onClick={(e) => handleMenuClick(e, item.pageId)}
-                  className={`block px-4 py-3 rounded-xl font-bold hover:bg-red-50 hover:text-red-600 hover:pl-6 hover:shadow-sm transition-all duration-300 ${activeMenu === item.pageId ? 'bg-red-50 text-red-600 pl-6 shadow-sm' : 'text-[#1e293b]'}`}
+                  href="#" 
+                  onClick={(e) => handleMenuClick(e, item.pageId)} 
+                  className={`relative overflow-hidden block px-4 py-3 rounded-xl font-bold transition-all duration-300 group ${activeMenu === item.pageId ? 'bg-red-50 text-red-600 pl-6 shadow-sm' : 'text-[#1e293b] hover:bg-slate-50 hover:text-red-600 hover:pl-6'}`}
                 >
-                  {item.name}
+                  {/* Efek Kilat juga buat Mobile biar keren */}
+                  <span className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/80 to-transparent transform -skew-x-12 group-hover:left-[200%] transition-all duration-1000 ease-out z-0"></span>
+                  <span className="relative z-10">{item.name}</span>
                 </a>
               ))}
             </div>
-            
             <div className="pt-2 pb-3">
               <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2 px-3">Informasi & Akses</p>
               {utilityLinks.map((item, index) => (
-                <a 
-                  key={`util-${index}`} 
-                  href="#"
-                  onClick={(e) => handleMenuClick(e, item.pageId)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:pl-6 transition-all duration-300"
-                >
-                  {item.name}
-                </a>
+                <a key={`util-${index}`} href="#" onClick={(e) => handleMenuClick(e, item.pageId)} className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:pl-6 transition-all duration-300">{item.name}</a>
               ))}
-              <a 
-                href="#"
-                onClick={(e) => handleMenuClick(e, 'login')}
-                className="mt-2 mx-4 flex items-center justify-center gap-2 bg-red-600 text-white px-4 py-3 rounded-xl font-bold hover:bg-red-700 hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-sm"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
-                Login Admin
+              
+              <a href="#" onClick={(e) => handleMenuClick(e, 'login')} className="relative overflow-hidden group mt-2 mx-4 flex items-center justify-center gap-2 bg-red-600 text-white px-4 py-3 rounded-xl font-bold hover:bg-red-700 hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] hover:scale-[1.02] active:scale-95 transition-all duration-500 shadow-sm">
+                <span className="absolute inset-0 w-full h-full bg-white/0 group-hover:bg-white/20 backdrop-blur-md transition-all duration-500 z-0"></span>
+                <span className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent transform -skew-x-12 group-hover:left-[200%] transition-all duration-1000 ease-out z-0"></span>
+                <span className="relative z-10 flex items-center gap-2">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                  Login Admin
+                </span>
               </a>
             </div>
           </div>
         </div>
-
       </nav>
+
+      {/* =========================================
+          3. RUNNING TEXT TICKER (Tanpa Border)
+          ========================================= */}
+      <div 
+        className="w-full backdrop-blur-md text-slate-900 py-2 relative z-10"
+        style={{ 
+          backgroundColor: 'rgba(255, 255, 255, 0.9)' 
+        }}
+      >
+        <div className="container mx-auto px-6 max-w-[1400px] flex items-center">
+          
+          {/* Ikon Pengumuman */}
+          <div className="flex items-center gap-2 shrink-0 mr-4 font-black text-[11px] uppercase tracking-wider bg-slate-900/90 backdrop-blur-sm text-amber-400 px-3 py-1 rounded-full shadow-sm">
+            <svg className="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" /></svg>
+            INFO SINTARAMA
+          </div>
+          
+          {/* Container Animasi Marquee */}
+          <div className="flex-1 overflow-hidden whitespace-nowrap relative cursor-default">
+            <style>
+              {`
+                @keyframes marquee {
+                  0% { transform: translateX(100%); }
+                  100% { transform: translateX(-100%); }
+                }
+                .animate-marquee {
+                  display: inline-block;
+                  animation: marquee 35s linear infinite;
+                  will-change: transform;
+                }
+                .animate-marquee:hover {
+                  animation-play-state: paused;
+                }
+              `}
+            </style>
+            
+            {/* Teks Berjalan */}
+            <div className="animate-marquee text-xs md:text-sm font-bold tracking-wide drop-shadow-sm">
+              ✦ Selamat Datang di SINTARAMA (Sistem Informasi Tata Ruang Masyarakat) Kabupaten Grobogan. 
+              ✦ Pusat Layanan Informasi dan Pengaduan Infrastruktur Pekerjaan Umum dan Penataan Ruang Wilayah Purwodadi, Grobogan. 
+              ✦ Mari Bersama Mewujudkan Penataan Ruang yang Aman, Nyaman, Produktif, dan Berkelanjutan. 
+              ✦ Sampaikan pengaduan infrastruktur Anda melalui kanal "Lapor Solusi AWP" untuk respon cepat dari Dinas PUPR.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </header>
   );
 };
