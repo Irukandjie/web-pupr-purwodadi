@@ -12,8 +12,8 @@ const HeroSection = () => {
             {/* 2. Gambar Background: Dipindah ke paling belakang (z-0) dan ukurannya disesuaikan */}
             <div className="absolute inset-0 md:right-0 md:left-auto md:w-[60%] h-full z-0 flex justify-end">
               <img 
-                src="https://images.unsplash.com/photo-1541888049-74d320fb7240?q=80&w=2070&auto=format&fit=crop" 
-                alt="Gedung DPUPR Grobogan" 
+                src="https://i.ibb.co.com/27J8xbpv/HEROSECTION.jpg" 
+                alt="Background SINTARAMA" 
                 className="w-full h-full object-cover object-center"
               />
             </div>
