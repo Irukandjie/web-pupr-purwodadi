@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+// IMPORT SEMUA KOMPONEN
 import NavbarPUPR from './component/navbar'; 
 import LandingPage from './component/Landingpage'; 
 import InformasiGeografis from './component/InformasiGeografis';
 import BeritaSection from './component/berita';
 import LoadingScreen from './component/LoadingScreen';
 import SambutanSection from './component/sambutan';
+
+// IMPORT KOMPONEN ADMIN YANG BARU
+import LoginAdmin from './component/LoginAdmin';
+import AdminDashboard from './component/AdminDashboard';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -27,6 +32,8 @@ function App() {
     <div className="font-sans antialiased text-slate-900 bg-white min-h-screen">
       
       {isLoading && <LoadingScreen isFadingOut={isFadingOut} />}
+      
+      {/* Navbar dibiarkan di bawah z-index overlay login/admin */}
       <NavbarPUPR onNavigate={handleNavigation} />
 
       <main className="pt-[70px] md:pt-[80px]">
@@ -57,6 +64,26 @@ function App() {
             </button>
           </div>
         )}
+
+        {/* =========================================
+            HALAMAN LOGIN ADMIN (OVERLAY PENUH)
+            ========================================= */}
+        {currentPage === 'login' && (
+          <div className="fixed inset-0 z-[200] bg-white">
+            <LoginAdmin onNavigate={handleNavigation} />
+          </div>
+        )}
+
+        {/* =========================================
+            HALAMAN DASHBOARD ADMIN (OVERLAY PENUH)
+            ========================================= */}
+        {/* Diubah jadi 'admin-dashboard' biar nyambung sama form login */}
+        {currentPage === 'admin-dashboard' && (
+          <div className="fixed inset-0 z-[200] bg-white">
+            <AdminDashboard onNavigate={handleNavigation} />
+          </div>
+        )}
+
       </main>
     </div>
   );
