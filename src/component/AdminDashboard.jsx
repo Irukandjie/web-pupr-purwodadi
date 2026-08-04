@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ onNavigate }) => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
+
+  // --- STATE UNTUK POPUP MODAL ---
+  const [isBeritaModalOpen, setIsBeritaModalOpen] = useState(false);
+  const [isDokumenModalOpen, setIsDokumenModalOpen] = useState(false);
 
   // Dummy Data untuk preview UI
   const [berita, setBerita] = useState([
@@ -23,12 +27,18 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="flex h-screen bg-slate-50 font-sans">
+    <div className="flex h-screen bg-slate-50 font-sans relative">
       
       {/* SIDEBAR */}
       <aside className="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20">
         <div className="p-6 flex items-center gap-3 border-b border-slate-800">
-          <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center font-black text-xl shadow-lg">S</div>
+          <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center p-1 shadow-lg shrink-0">
+            <img 
+              src="https://i.ibb.co.com/MyjRST6N/IMG-20260730-WA0012-1785396069965.jpg" 
+              alt="Logo SINTARAMA" 
+              className="w-full h-full object-contain"
+            />
+          </div>
           <div>
             <h1 className="text-lg font-bold tracking-wider">SINTARAMA</h1>
             <p className="text-[10px] text-slate-400 uppercase tracking-widest">Admin Panel</p>
@@ -55,7 +65,10 @@ const AdminDashboard = () => {
         </nav>
 
         <div className="p-4 border-t border-slate-800">
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 text-red-400 hover:bg-red-600 hover:text-white rounded-lg transition-colors text-sm font-bold">
+          <button 
+            onClick={() => onNavigate && onNavigate('landing')}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 text-red-400 hover:bg-red-600 hover:text-white rounded-lg transition-colors text-sm font-bold"
+          >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
             Logout
           </button>
@@ -80,15 +93,15 @@ const AdminDashboard = () => {
                 <p className="text-sm font-bold text-slate-800">Admin DPUPR</p>
                 <p className="text-[10px] text-gray-500 uppercase font-bold">Super Admin</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-slate-200 border-2 border-red-100 overflow-hidden">
-                <img src="https://placehold.co/100x100/dc2626/ffffff?text=A" alt="Profile" className="w-full h-full object-cover" />
+              <div className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center font-bold overflow-hidden">
+                A
               </div>
             </div>
           </div>
         </header>
 
         {/* CONTENT VIEW */}
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-8 relative">
           
           {/* --- VIEW: DASHBOARD --- */}
           {activeMenu === 'dashboard' && (
@@ -125,7 +138,11 @@ const AdminDashboard = () => {
                   <input type="text" placeholder="Cari berita..." className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 text-sm focus:ring-2 focus:ring-red-500 outline-none w-64" />
                   <svg className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </div>
-                <button className="bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-red-700 flex items-center gap-2">
+                {/* TOMBOL TRIGGER MODAL BERITA */}
+                <button 
+                  onClick={() => setIsBeritaModalOpen(true)}
+                  className="bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-red-700 flex items-center gap-2 transition-colors"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" /></svg>
                   Tambah Berita
                 </button>
@@ -163,7 +180,11 @@ const AdminDashboard = () => {
              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
               <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                 <h3 className="font-bold text-slate-800">Daftar Dokumen PDF</h3>
-                <button className="bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-red-700 flex items-center gap-2">
+                {/* TOMBOL TRIGGER MODAL DOKUMEN */}
+                <button 
+                  onClick={() => setIsDokumenModalOpen(true)}
+                  className="bg-red-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-md hover:bg-red-700 flex items-center gap-2 transition-colors"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                   Upload Dokumen
                 </button>
@@ -198,7 +219,6 @@ const AdminDashboard = () => {
              <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden p-8">
                <h3 className="text-xl font-bold text-slate-800 mb-6 border-b border-gray-100 pb-4">Pengaturan Visual Website</h3>
                <form className="space-y-6 max-w-3xl">
-                 
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-2">Gambar Background Hero (Beranda)</label>
                    <div className="flex gap-4">
@@ -206,7 +226,6 @@ const AdminDashboard = () => {
                      <button type="button" className="px-4 py-2 bg-slate-800 text-white font-bold text-sm rounded-lg hover:bg-slate-700">Preview</button>
                    </div>
                  </div>
-
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-2">Foto Kepala Dinas (Halaman Sambutan)</label>
                    <div className="flex gap-4">
@@ -214,18 +233,15 @@ const AdminDashboard = () => {
                      <button type="button" className="px-4 py-2 bg-slate-800 text-white font-bold text-sm rounded-lg hover:bg-slate-700">Preview</button>
                    </div>
                  </div>
-
                  <div>
                    <label className="block text-sm font-bold text-slate-700 mb-2">Teks Sambutan Kepala Dinas</label>
                    <textarea rows="4" className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:bg-white focus:ring-2 focus:ring-red-500 outline-none transition-all" defaultValue="Website Dinas Pekerjaan Umum Kabupaten Purwodadi hadir sebagai sarana informasi publik..."></textarea>
                  </div>
-
                  <div className="pt-6 border-t border-gray-100">
                    <button type="button" className="px-8 py-3 bg-red-600 text-white font-bold rounded-xl shadow-lg hover:bg-red-700 transition-all">
                      Simpan Perubahan
                    </button>
                  </div>
-
                </form>
              </div>
           )}
@@ -242,6 +258,118 @@ const AdminDashboard = () => {
 
         </div>
       </main>
+
+      {/* ==========================================================
+          MODAL: TAMBAH BERITA 
+          ========================================================== */}
+      {isBeritaModalOpen && (
+        <div className="fixed inset-0 z-[300] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[90vh]">
+            
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-2xl">
+              <h3 className="font-black text-slate-800 text-lg flex items-center gap-2">
+                <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" /></svg>
+                Tambah Berita Baru
+              </h3>
+              <button onClick={() => setIsBeritaModalOpen(false)} className="text-gray-400 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-red-50">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto space-y-5 custom-scrollbar">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Judul Berita</label>
+                <input type="text" placeholder="Masukkan judul berita..." className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:bg-white bg-gray-50 focus:ring-2 focus:ring-red-500/50 focus:border-red-500 outline-none transition-all" />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Upload Gambar</label>
+                  <input type="file" accept="image/*" className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-600 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-red-50 file:text-red-600 hover:file:bg-red-100 transition-all outline-none cursor-pointer" />
+                </div>
+                <div>
+                  <label className="block text-sm font-bold text-slate-700 mb-1.5">Kategori Berita</label>
+                  <select className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:ring-2 focus:ring-red-500/50 focus:border-red-500 outline-none transition-all cursor-pointer">
+                    <option value="">-- Pilih Kategori --</option>
+                    <option value="kegiatan">Kegiatan</option>
+                    <option value="infrastruktur">Infrastruktur</option>
+                    <option value="pengumuman">Pengumuman</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Ringkasan Berita</label>
+                <textarea rows="2" placeholder="Tulis sedikit ringkasan untuk ditampilkan di halaman depan..." className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:bg-white bg-gray-50 focus:ring-2 focus:ring-red-500/50 focus:border-red-500 outline-none transition-all resize-none"></textarea>
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Isi Full Berita</label>
+                <textarea rows="6" placeholder="Ketik detail isi berita selengkapnya di sini..." className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:bg-white bg-gray-50 focus:ring-2 focus:ring-red-500/50 focus:border-red-500 outline-none transition-all"></textarea>
+              </div>
+            </div>
+
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50 rounded-b-2xl">
+              <button onClick={() => setIsBeritaModalOpen(false)} className="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">
+                Batal
+              </button>
+              <button className="px-6 py-2.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                Simpan & Publish
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      )}
+
+      {/* ==========================================================
+          MODAL: UPLOAD DOKUMEN 
+          ========================================================== */}
+      {isDokumenModalOpen && (
+        <div className="fixed inset-0 z-[300] flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col">
+            
+            <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-2xl">
+              <h3 className="font-black text-slate-800 text-lg flex items-center gap-2">
+                <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                Upload Dokumen Baru
+              </h3>
+              <button onClick={() => setIsDokumenModalOpen(false)} className="text-gray-400 hover:text-red-600 transition-colors p-1 rounded-lg hover:bg-red-50">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <div className="p-6 space-y-5">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Judul / Nama Dokumen</label>
+                <input type="text" placeholder="Misal: SK Bupati Tahun 2024" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:bg-white bg-gray-50 focus:ring-2 focus:ring-red-500/50 focus:border-red-500 outline-none transition-all" />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1.5">Upload File (.pdf)</label>
+                <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 flex flex-col items-center justify-center text-center bg-gray-50 hover:bg-red-50 hover:border-red-300 transition-colors cursor-pointer relative">
+                  <svg className="w-10 h-10 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <p className="text-sm font-bold text-slate-700">Klik untuk mencari file PDF</p>
+                  <p className="text-xs text-gray-500 mt-1">Maksimal ukuran file 5MB</p>
+                  {/* Input formnya ditaruh invisible nutupin box biar bisa diklik */}
+                  <input type="file" accept=".pdf" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50 rounded-b-2xl">
+              <button onClick={() => setIsDokumenModalOpen(false)} className="px-5 py-2.5 text-sm font-bold text-gray-600 hover:bg-gray-200 rounded-lg transition-colors">
+                Batal
+              </button>
+              <button className="px-6 py-2.5 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-md transition-colors flex items-center gap-2">
+                Upload File
+              </button>
+            </div>
+            
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
